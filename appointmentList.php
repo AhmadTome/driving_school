@@ -70,6 +70,10 @@ if (!isset($_SESSION['email'])) {
     <!-- Links -->
     <ul class="navbar-nav">
         <li class="nav-item">
+            <a class="nav-link" href="#"> اهلا بك <?php echo $_SESSION['Name'] ?>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="appointmentList.php">المواعيد</a>
         </li>
         <li class="nav-item">
@@ -125,7 +129,7 @@ function getAppointments()
 
     mysqli_set_charset($conn,"utf8");
 
-    $query = "SELECT * FROM `appointments` ";
+    $query = "SELECT * FROM `appointments` order by id desc";
     $result = $conn->query($query);
     $appointment = [];
 

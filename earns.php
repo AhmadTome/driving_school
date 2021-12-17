@@ -88,53 +88,24 @@ if (!isset($_SESSION['email'])) {
 
 
             <div class="container" style="color: white; text-align: right" dir="rtl">
-                <p class="text-right" style="color: greenyellow">
-                    <?php
-                    if (isset($_SESSION['Success'])) {
-                        echo $_SESSION['Success'];
-                        unset($_SESSION['Success']);
 
-                    }
-                    ?>
-                </p>
-
-                <p class="text-right" style="color: red">
-                    <?php
-                    if (isset($_SESSION['Error'])) {
-                        echo $_SESSION['Error'];
-                        unset($_SESSION['Error']);
-
-                    }
-                    ?>
-                </p>
-
-                <form action="database/add_appointment.php" method="post">
-                    <div class="form-group">
-                        <label for="driver_name">اسم المدرب</label>
-                        <input type="text" class="form-control" id="driver_name" placeholder="ادخل اسم المدرب هنا" name="driver_name" required>
-                    </div>
                     <div class="row form-group">
                         <div class="col-6">
-                            <label for="start_at">وقت بداية الدرس</label>
-                            <input type="datetime-local" class="form-control" id="start_at"  name="start_at" required>
+                            <label for="start_at">تاريخ بداية</label>
+                            <input type="date" class="form-control" id="start_at"  name="start_at" >
                         </div>
                         <div class="col-6">
-                            <label for="end_at">وقت نهاية الدرس</label>
-                            <input style="text-align: left" type="text" class="form-control" id="end_at" name="end_at" required readonly>
+                            <label for="end_at">تاريخ نهاية</label>
+                            <input type="date" class="form-control" id="end_at" name="end_at"  >
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="carModel">نوع المركبة</label>
-                        <input type="text" class="form-control" id="carModel" placeholder="ادخل نوه المركبة هنا" name="carModel" required>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="cost">تكلفة الدرس</label>
-                        <input type="number" class="form-control" id="cost" value="90" name="cost" required>
-                    </div>
+                    <button id="getEarn" class="btn btn-primary">بحث</button>
 
-                    <button type="submit" class="btn btn-primary">تسجيل الموعد</button>
-                </form>
+                <div class="form-group">
+                    <label for="driver_name">العائد</label>
+                    <input type="text" class="form-control" id="earn" name="earn" readonly>
+                </div>
             </div>
         </div>
     </div>
@@ -145,27 +116,21 @@ if (!isset($_SESSION['email'])) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <script>
     $(document).ready(function () {
-
-
-       $('#start_at').on('change', function () {
-            var start_at = $(this).val();
-
-           var oldDateObj = new Date(start_at);
-           var newDateObj = new Date();
-           newDateObj.setTime(oldDateObj.getTime() + (40 * 60 * 1000));
-           var end_date = newDateObj.toLocaleDateString("en-US");
-           var end_time = (newDateObj+"").split(' ')[4];
-
-           var endTimeHour = (end_time+"").split(':')[0];
-           var new_hour = parseInt(endTimeHour) > 12 ? parseInt(endTimeHour) - 12 : parseInt(endTimeHour);
-           end_time = end_time.replace(endTimeHour, new_hour)
-
-           var end_at = end_time+" "+end_date
-           $('#end_at').val(end_at);
-
-       });
-    });
+        $('#getEarn').on('click', function () {
+            $.ajax({
+                url: 'database/getEarns.php',
+                type: "get",
+                data: {
+                    "start_at": $('#start_at').val(),
+                    "end_at": $('#end_at').val(),
+                },
+                success: function (data) {
+                    $('#earn').val(data)
+                }
+            });
+        });
+    })
 </script>
+

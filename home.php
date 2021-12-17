@@ -53,13 +53,16 @@ if (!isset($_SESSION['email'])) {
     }
 </style>
 <body>
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" dir="rtl">
     <!-- Brand/logo -->
     <a class="navbar-brand" href="home.php">الصفحة الرئيسية</a>
 
     <!-- Links -->
     <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#"> اهلا بك <?php echo $_SESSION['Name'] ?>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="appointmentList.php">المواعيد</a>
         </li>

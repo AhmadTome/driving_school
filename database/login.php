@@ -18,8 +18,8 @@ if ($result->num_rows > 0) {
 
     if ($row['email'] == $email &&  $row['password'] == $password) {
         $_SESSION['id'] = $row['id'];
-        $_SESSION['Name'] = $Name;
-        $_SESSION['Age'] = $Age;
+        $_SESSION['Name'] = $row['name'];
+        $_SESSION['Age'] = $row['age'];
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
 

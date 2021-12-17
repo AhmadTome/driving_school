@@ -64,6 +64,10 @@ if (!isset($_SESSION['email'])) {
             <a class="nav-link" href="add_appointment.php">إضافة مواعيد</a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="earns.php">العائد من المال</a>
+        </li>
+
         <li class="nav-item" style="float: left">
             <a class="nav-link" href="helper/kill_session.php">تسجيل خروج</a>
         </li>
